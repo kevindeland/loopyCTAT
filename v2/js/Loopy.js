@@ -59,6 +59,9 @@ function Loopy(config){
 	// Modal
 	self.modal = new Modal(self);
 
+	// CTAT
+	self.ctat = new CTATListener(self);
+
 	//////////
 	// INIT //
 	//////////
@@ -136,6 +139,7 @@ function Loopy(config){
 	self.dirty = false;
 
 	// YOU'RE A DIRTY BOY
+	console.log("Loopy" + "You're a dirty boy");
 	subscribe("model/changed", function(){
 		if(!self.embedded) self.dirty = true;
 	});

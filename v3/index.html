@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+
+  <title>TESTING ZONE</title>
+</head>
+
+<body>
+  <div id="buttons">
+    <button id="buttonA" onclick="clickMe('A')">A</button>
+    <button id="buttonB" onclick="clickMe('B')">B</button>
+    <button id="buttonC" onclick="clickMe('C')">C</button>
+  </div>
+
+  <div id="listener"></div>
+
+</body>
+
+<script>
+  function clickMe(id) {
+    console.log("Clicked button " + id);
+    publish("click/button", [{id: id}]);
+  }
+</script>
+
+<script src="js/minpubsub.js"></script>
+
+<script src="js/TestingZone.js"></script>
+<script src="js/PageUI.js"></script>
+<script src="js/CTATListener.js"></script>
+
+
+
+<!-- CTAT -->
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script data-silex-static="true" type="text/javascript" src="https://rawgit.com/kevindeland/CTATexperimentation/master/ctatloader.js"></script>
+
+
+<script data-silex-static="true" type="text/javascript" src="https://rawgit.com/kevindeland/CTATexperimentation/master/ctat.min.js"></script>
+<script>
+  window.onload = function(){
+
+    window.testingZone = new TestingZone();
+  };
+</script>

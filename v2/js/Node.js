@@ -6,8 +6,8 @@ NODE!
 var TAG = "Node";
 
 Node.COLORS = {
-	0: "#000000", // red
-	//0: "#EA3E3E", // red
+	//0: "#000000", // white
+	0: "#EA3E3E", // red
 	1: "#EA9D51", // orange
 	2: "#FEEE43", // yellow
 	3: "#BFEE3F", // green
@@ -327,6 +327,8 @@ function Node(model, config){
 			bottom: self.y + self.radius
 		};
 	};
+
+	publish("createNode", [self]);
 
 }
 

@@ -77,6 +77,11 @@ function Sidebar(loopy){
 				self.showPage("Edit");
 			}
 		}));
+
+		page.addComponent(new ComponentHTML({
+			html: "This is a test on the node page!"
+		}));
+
 		self.addPage("Node", page);
 	})();
 
@@ -108,6 +113,11 @@ function Sidebar(loopy){
 				self.showPage("Edit");
 			}
 		}));
+
+		page.addComponent(new ComponentHTML({
+			html: "This is a test on the edge page!"
+		}));
+
 		self.addPage("Edge", page);
 	})();
 
@@ -131,7 +141,7 @@ function Sidebar(loopy){
 			page.getComponent("text").select();
 		};
 		page.onhide = function(){
-			
+
 			// If you'd just edited it...
 			var label = page.target;
 			if(!page.target) return;
@@ -152,6 +162,11 @@ function Sidebar(loopy){
 				self.showPage("Edit");
 			}
 		}));
+
+		page.addComponent(new ComponentHTML({
+			html: "This is a test on the label page!"
+		}));
+
 		self.addPage("Label", page);
 	})();
 
@@ -160,7 +175,7 @@ function Sidebar(loopy){
 		var page = new SidebarPage();
 		page.addComponent(new ComponentHTML({
 			html: ""+
-			
+
 			"<b style='font-size:1.4em'>LOOPY</b> (v1.0)<br>a tool for thinking in systems<br><br>"+
 
 			"<span class='mini_button' onclick='publish(\"modal\",[\"examples\"])'>see examples</span> "+
@@ -175,12 +190,23 @@ function Sidebar(loopy){
 			"<span class='mini_button' onclick='publish(\"modal\",[\"save_gif\"])'>make a GIF using LICEcap</span> <br><br>"+
 
 			"<hr/><br>"+
-				
+
 			"<a target='_blank' href='../'>LOOPY</a> is "+
 			"made by <a target='_blank' href='http://ncase.me'>nicky case</a> "+
 			"with your support <a target='_blank' href='https://www.patreon.com/ncase'>on patreon</a> &lt;3"
 
 		}));
+
+		page.addComponent(new ComponentHTML({
+			html: "This is a test on the main page!"
+		}));
+
+
+		page.addComponent(new ComponentCTAT({
+			id: "ctat-hint-widget"
+		}));
+
+
 		self.addPage("Edit", page);
 	})();
 
@@ -276,14 +302,14 @@ function Component(){
 		return self.page.target[self.propName];
 	};
 	self.setValue = function(value){
-		
+
 		// Model's been changed!
 		publish("model/changed");
 
 		// Edit the value!
 		self.page.target[self.propName] = value;
 		self.page.onedit(); // callback!
-		
+
 	};
 }
 
@@ -313,6 +339,24 @@ function ComponentInput(config){
 	self.select = function(){
 		setTimeout(function(){ input.select(); },10);
 	};
+
+}
+
+function ComponentCTAT(config) {
+
+	// Inherit
+	var self = this;
+	Component.apply(self);
+
+	var dom = $("#" + config.id)[0];
+	console.log("FOUND DOM");
+	console.log(dom);
+	// TODO how to move it?
+
+
+	self.dom = dom;
+
+	log("Sidebar", "adding CTATComponent " + config.id);
 
 }
 
