@@ -45,6 +45,7 @@ function Sidebar(loopy){
 			label: "Color:",
                                 options: [0,1,2,3,4,5,6],
 			oninput: function(value){
+
 				Node.defaultHue = value;
 			}
 		}));
@@ -68,7 +69,27 @@ function Sidebar(loopy){
 			var name = node.label;
 			if(name=="" || name=="?") page.getComponent("label").select();
 
+			console.log("onedit");
+
+			//publish("name/node", [node]);
+
 		};
+
+		page.addComponent(new ComponentButton({
+			label: "update node",
+			//label: "delete circle",
+			onclick: function(node){
+				console.log("updating");
+				node.label = window.input_text;
+				window.kevin_node = node;
+				page.target[self.propName] = node.label;
+
+				publish("name/node", [node]);
+
+				//page.onedit();
+			}
+		}));
+
 		page.addComponent(new ComponentButton({
 			label: "delete node",
 			//label: "delete circle",
@@ -78,8 +99,8 @@ function Sidebar(loopy){
 			}
 		}));
 
-		page.addComponent(new ComponentHTML({
-			html: "This is a test on the node page!"
+		page.addComponent(new ComponentCTAT({
+			id: "ctat-hint-widget"
 		}));
 
 		self.addPage("Node", page);
@@ -99,7 +120,9 @@ function Sidebar(loopy){
 			bg: "strength",
 			label: "<br><br>Relationship:",
 			//label: "Relationship:",
-			options: [1, -1]
+			options: [1, -1],
+			type: "edge"
+
 		}));
 		page.addComponent(new ComponentHTML({
 			html: "(to make a stronger relationship, draw multiple arrows!)"
@@ -114,8 +137,8 @@ function Sidebar(loopy){
 			}
 		}));
 
-		page.addComponent(new ComponentHTML({
-			html: "This is a test on the edge page!"
+		page.addComponent(new ComponentCTAT({
+			id: "ctat-hint-widget"
 		}));
 
 		self.addPage("Edge", page);
@@ -163,8 +186,8 @@ function Sidebar(loopy){
 			}
 		}));
 
-		page.addComponent(new ComponentHTML({
-			html: "This is a test on the label page!"
+		page.addComponent(new ComponentCTAT({
+			id: "ctat-hint-widget"
 		}));
 
 		self.addPage("Label", page);
@@ -195,10 +218,6 @@ function Sidebar(loopy){
 			"made by <a target='_blank' href='http://ncase.me'>nicky case</a> "+
 			"with your support <a target='_blank' href='https://www.patreon.com/ncase'>on patreon</a> &lt;3"
 
-		}));
-
-		page.addComponent(new ComponentHTML({
-			html: "This is a test on the main page!"
 		}));
 
 
@@ -302,12 +321,13 @@ function Component(){
 		return self.page.target[self.propName];
 	};
 	self.setValue = function(value){
+		console.log("setValue");
 
 		// Model's been changed!
-		publish("model/changed");
+		//CHANGED publish("model/changed");
 
 		// Edit the value!
-		self.page.target[self.propName] = value;
+	 	self.page.target[self.propName] = value;
 		self.page.onedit(); // callback!
 
 	};
@@ -325,7 +345,9 @@ function ComponentInput(config){
 	var className = config.textarea ? "component_textarea" : "component_input";
 	var input = _createInput(className, config.textarea);
 	input.oninput = function(event){
+		console.log("oninput");
 		self.setValue(input.value);
+		window.input_text = input.value;
 	};
 	self.dom.appendChild(label);
 	self.dom.appendChild(input);
@@ -403,6 +425,13 @@ function ComponentSlider(config){
 	};
 	var onmouseup = function(){
 		isDragging = false;
+		if(config.bg == "strength") {
+			console.log("found a strength mouseup");
+			window.my_target = self.page.target;
+			self.fromNode = self.page.target.from.id;
+			self.toNode = self.page.target.to.id;
+			publish("update/edge", [self]);
+		}
 	};
 	var onmousemove = function(event){
 		if(isDragging) sliderInput(event);

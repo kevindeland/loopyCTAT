@@ -506,7 +506,7 @@ function Edge(model, config){
 		};
 	};
 
-	publish("createEdge", [self]);
+	publish("create/edge", [self]);
 
 
 }

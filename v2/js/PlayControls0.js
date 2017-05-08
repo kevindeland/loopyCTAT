@@ -120,7 +120,7 @@ function PlayControls(loopy){
 		self.addPage("Player", page);
 
 	})();
-
+	
 }
 
 function PlayButton(config){
