@@ -99,10 +99,6 @@ function Sidebar(loopy){
 			}
 		}));
 
-		page.addComponent(new ComponentCTAT({
-			id: "ctat-hint-widget"
-		}));
-
 		self.addPage("Node", page);
 	})();
 
@@ -137,9 +133,6 @@ function Sidebar(loopy){
 			}
 		}));
 
-		page.addComponent(new ComponentCTAT({
-			id: "ctat-hint-widget"
-		}));
 
 		self.addPage("Edge", page);
 	})();
@@ -174,6 +167,7 @@ function Sidebar(loopy){
 			if(/^\s*$/.test(text)){
 				// that was all whitespace, KILL.
 				page.target = null;
+				window.target = null;
 				label.kill();
 			}
 
@@ -186,9 +180,6 @@ function Sidebar(loopy){
 			}
 		}));
 
-		page.addComponent(new ComponentCTAT({
-			id: "ctat-hint-widget"
-		}));
 
 		self.addPage("Label", page);
 	})();
@@ -221,11 +212,6 @@ function Sidebar(loopy){
 		}));
 
 
-		page.addComponent(new ComponentCTAT({
-			id: "ctat-hint-widget"
-		}));
-
-
 		self.addPage("Edit", page);
 	})();
 
@@ -244,6 +230,7 @@ function SidebarPage(){
 
 	var self = this;
 	self.target = null;
+	window.target = null;
 
 	// DOM
 	self.dom = document.createElement("div");
@@ -282,6 +269,7 @@ function SidebarPage(){
 
 		// New target to edit!
 		self.target = object;
+		window.target = object;
 
 		// Show each property with its component
 		for(var i=0;i<self.components.length;i++){

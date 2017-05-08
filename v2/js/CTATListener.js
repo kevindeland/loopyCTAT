@@ -96,7 +96,14 @@ function CTATListener(loopy) {
 
   function processCorrect(sai) {
 
-      document.getElementById("toolbar").style.backgroundColor = "green";
+    //document.getElementById("toolbar").style.backgroundColor = "green";
+    //document.getElementById("sidebar").style.backgroundColor = "green";
+    //document.getElementById("playbar").style.backgroundColor = "green";
+    //document.getElementById("ctat-hint-widget").style.backgroundColor = "green";
+
+      window.target.hue = 3;
+
+    console.log()
 
       if(sai.getAction() == "clickButton") {
         button = document.getElementById(sai.getSelection());
@@ -113,7 +120,12 @@ function CTATListener(loopy) {
 
   function processIncorrect(sai) {
 
-      document.getElementById("toolbar").style.backgroundColor = "red";
+
+      //document.getElementById("toolbar").style.backgroundColor = "red";
+      //document.getElementById("sidebar").style.backgroundColor = "red";
+      //document.getElementById("playbar").style.backgroundColor = "red";
+      //document.getElementById("ctat-hint-widget").style.backgroundColor = "red";
+      window.target.hue = 0;
 
       if(sai.getAction() == "clickButton") {
         button = document.getElementById(sai.getSelection());
